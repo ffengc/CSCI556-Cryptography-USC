@@ -1,0 +1,34 @@
+# 公开仓库只放笔记：默认忽略一切，下面逐项放行。
+# 新增顶层文件夹不会自动上传，要公开的话在这里加一行 !/文件夹名/
+/*
+!/.gitignore
+!/LICENSE
+!/README.md
+!/course/
+!/lectures/
+
+# course/：只公开整理过的课程信息（同步脚本、主页快照、主页 PDF 留在本地）
+/course/*
+!/course/syllabus.md
+!/course/katz-lindell-edition-map.md
+
+# lectures/：只公开笔记（*.md）和笔记配图（assets/）
+/lectures/**
+!/lectures/**/
+!/lectures/*/*.md
+!/lectures/*/assets/**
+
+# 板书照片只留在本地
+/lectures/*/board/
+
+# 课堂照片，只留在本地
+/lectures/lec06-0909/assets/image-20260910200004972.png
+/lectures/lec07-0914/assets/image1.png
+
+# Agent 配置文件
+CLAUDE.md
+AGENTS.md
+.claude/
+
+# 系统文件
+.DS_Store
