@@ -75,6 +75,6 @@
 
 ## 目前进度对照
 
-- 已有笔记：Lec1、Lec3、Lec4、Lec6、Lec7、Lec8，每讲在 `lectures/lecNN-MMDD/` 下（索引见 [README](../README.md)）
+- 已有笔记：Lec1、Lec3、Lec4、Lec6、Lec7、Lec8、Lec9，每讲在 `lectures/lecNN-MMDD/` 下（索引见 [README](../README.md)）
 - ==缺笔记：Lec2（08/26 Shamir）==
 - `homework/hw1/hw1.pdf` 不在课程主页上，来源应是课堂或 Brightspace
