@@ -38,7 +38,7 @@ USC **CSCI 556 密码学导论**（Fall 2026，Prof. Shang-Hua Teng）的课程�
 | 7 | 09/14 | 计算安全、复杂性理论基础、Randomness vs Pseudorandomness | [笔记](lectures/lec07-0914/notes.md) · [随记](lectures/lec07-0914/my-notes.md) |
 | 8 | 09/16 | Public-Key Encryption、CPA、数论基础（GCD、欧几里得算法） | [笔记](lectures/lec08-0916/notes.md) · [随记](lectures/lec08-0916/my-notes.md) |
 | 9 | 09/21 | 群论、中国剩余定理、Euler 定理、RSA 开头 | [笔记](lectures/lec09-0921/notes.md) · [随记](lectures/lec09-0921/my-notes.md) |
-| 10 | 09/23 | RSA（续）、数论基础 | 整理中 |
+| 10 | 09/23 | RSA 完整流程、单向函数、RSA 和最低位一样安全 | [笔记](lectures/lec10-0923/notes.md) · [随记](lectures/lec10-0923/my-notes.md) |
 | 11 | 09/28 | Rabin Encryption、Probabilistic Encryption | |
 | 12 | 09/30 | Diffie–Hellman Key Exchange | |
 | 13 | 10/05 | **Quiz** | |

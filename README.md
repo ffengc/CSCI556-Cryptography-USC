@@ -40,7 +40,7 @@ Course notes for **CSCI 556: Introduction to Cryptography** at USC (Fall 2026, t
 | 7 | 09/14 | Computational security, complexity theory basics, randomness vs. pseudorandomness | [Notes](lectures/lec07-0914/notes.md) · [Personal](lectures/lec07-0914/my-notes.md) |
 | 8 | 09/16 | Public-key encryption, CPA security, number theory basics (GCD, Euclid's algorithm) | [Notes](lectures/lec08-0916/notes.md) · [Personal](lectures/lec08-0916/my-notes.md) |
 | 9 | 09/21 | Group theory, Chinese remainder theorem, Euler's theorem, RSA setup | [Notes](lectures/lec09-0921/notes.md) · [Personal](lectures/lec09-0921/my-notes.md) |
-| 10 | 09/23 | RSA (cont.), number theory basics | In progress |
+| 10 | 09/23 | RSA in full, one-way functions, RSA is as secure as its last bit | [Notes](lectures/lec10-0923/notes.md) · [Personal](lectures/lec10-0923/my-notes.md) |
 | 11 | 09/28 | Rabin encryption, probabilistic encryption | |
 | 12 | 09/30 | Diffie–Hellman key exchange | |
 | 13 | 10/05 | **Quiz** | |

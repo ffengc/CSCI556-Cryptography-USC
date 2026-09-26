@@ -1,7 +1,7 @@
 # CSCI 556 课程信息（Fall 2026）
 
 > 来源：https://viterbi-web.usc.edu/~shanghua/teaching/Fall2026-556/index.html
-> 最后同步：2026-09-06。老师说明 outline **subject to changes**，每次开工前跑 `bash course/sync.sh`。
+> 最后同步：2026-09-26。老师说明 outline **subject to changes**，每次开工前跑 `bash course/sync.sh`。
 
 ## 基本信息
 
@@ -10,7 +10,7 @@
 | 课程 | CSCI 556, Introduction to Cryptography |
 | 老师 | Professor Shang-Hua Teng，shanghua[@]usc.edu |
 | Office Hours | ==每周一== 12:15–1:45 PM，GCS SB9（B2），或预约 |
-| TA | TBA（网页上仍未公布） |
+| TA | Sampad Mohanty，sbmohant@usc.edu（09/26 公布；office hours 未定） |
 | 上课 | Mon & Wed 10:00–11:50 AM，VPD 105 |
 | 先修 | CSCI 270 或老师许可 |
 
@@ -75,6 +75,6 @@
 
 ## 目前进度对照
 
-- 已有笔记：Lec1、Lec3、Lec4、Lec6、Lec7、Lec8、Lec9，每讲在 `lectures/lecNN-MMDD/` 下（索引见 [README](../README.md)）
+- 已有笔记：Lec1、Lec3、Lec4、Lec6、Lec7、Lec8、Lec9、Lec10，每讲在 `lectures/lecNN-MMDD/` 下（索引见 [README](../README.md)）
 - ==缺笔记：Lec2（08/26 Shamir）==
 - `homework/hw1/hw1.pdf` 不在课程主页上，来源应是课堂或 Brightspace
