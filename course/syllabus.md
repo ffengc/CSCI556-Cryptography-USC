@@ -10,7 +10,7 @@
 | 课程 | CSCI 556, Introduction to Cryptography |
 | 老师 | Professor Shang-Hua Teng，shanghua[@]usc.edu |
 | Office Hours | ==每周一== 12:15–1:45 PM，GCS SB9（B2），或预约 |
-| TA | Sampad Mohanty，sbmohant@usc.edu（09/26 公布；office hours 未定） |
+| TA | Sampad Mohanty，sbmohant[@]usc.edu（09/26 公布；office hours 未定） |
 | 上课 | Mon & Wed 10:00–11:50 AM，VPD 105 |
 | 先修 | CSCI 270 或老师许可 |
 

@@ -19,6 +19,14 @@
 !/lectures/*/*.md
 !/lectures/*/assets/**
 
+# homework/：公开作业解答（*.md）和配图（assets/）；
+# 题目和答案 PDF（老师发的材料，含官方 solution key）只留在本地
+!/homework/
+/homework/**
+!/homework/**/
+!/homework/*/*.md
+!/homework/*/assets/**
+
 # 板书照片只留在本地
 /lectures/*/board/
 
