@@ -219,6 +219,10 @@ Let $d \ge 0$. Prove that if $f(X)$ is a nonzero polynomial of degree at most $d
 
 Then prove that two distinct polynomials of degree at most $d$ cannot agree at more than $d$ distinct field elements.
 
+设 $d \ge 0$。证明：若 $f(X)$ 是域 $\mathbb{F}$ 上次数不超过 $d$ 的非零多项式，则 $f$ 在 $\mathbb{F}$ 中至多有 $d$ 个不同的根。
+
+进而证明：两个次数不超过 $d$ 的不同多项式，在域中至多只有 $d$ 个相同的取值点。
+
 
 #### 解答
 
