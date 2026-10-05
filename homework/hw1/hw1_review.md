@@ -28,15 +28,15 @@
   - [x] (b) $\mathbb{Z}_3$ 上的 OTP 是完美保密的
   - [x] (c) 钥匙不均匀就不完美保密
   - [x] (d) ⭐ 证明 $\lvert \mathcal{M} \rvert \le \lvert \mathcal{K} \rvert$
-- [ ] **P6** OTP 钥匙重复使用的攻击（Lec 4）
-  - [ ] (a) $C_1 \oplus C_2 = M_1 \oplus M_2$
-  - [ ] (b) 用已知明文算出钥匙
-  - [ ] (c) 解出第二条消息
-- [ ] **Q7** 随机周期 Vigenère 不是完美不可区分的（Lec 4、Lec 7）
-  - [ ] (a) $\Delta(C)$ 和 $\Delta(M)$ 的关系
-  - [ ] (b) $b = 0$ 时的成功概率 $= 5/13$
-  - [ ] (c) ⚠️ $b = 1$ 时的成功概率 $= 37/39$（原作业没做完）
-  - [ ] (d) ⚠️ 四种情况汇总：$\Pr[b' = b] = 2/3 > 1/2$（原作业没做完）
+- [x] **P6** OTP 钥匙重复使用的攻击（Lec 4）
+  - [x] (a) $C_1 \oplus C_2 = M_1 \oplus M_2$
+  - [x] (b) 用已知明文算出钥匙
+  - [x] (c) 解出第二条消息
+- [x] **Q7** 随机周期 Vigenère 不是完美不可区分的（Lec 4、Lec 7）
+  - [x] (a) $\Delta(C)$ 和 $\Delta(M)$ 的关系
+  - [x] (b) $b = 0$ 时的成功概率 $= 5/13$
+  - [x] (c) ⚠️ $b = 1$ 时的成功概率 $= 37/39$（原作业没做完）
+  - [x] (d) ⚠️ 四种情况汇总：$\Pr[b' = b] = 2/3 > 1/2$（原作业没做完）
 
 ## 和原作业对照的发现
 
@@ -369,7 +369,7 @@ Each minimal authorized set reconstructs $s$ by addition in $\mathbb{F}_{11}$:
 - $\{C, D\}$: $R_2 + (s - R_2) = s$
 - $\{C, E\}$: $R_2 + (s - R_2) = s$
 
-Every authorized set contains at least one of these minimal sets, so it can run the same reconstruction.
+**Every authorized set contains at least one of these minimal sets, so it can run the same reconstruction.**
 
 ### (d) Perfect privacy
 
@@ -403,7 +403,7 @@ Prove that, for every unauthorized set and every two secrets $s_0, s_1 \in \math
                                      其他组合概率都是 0            →  和 s 无关
 {B, D, E}：  (s − R₁, s − R₂, s − R₂)  同理，形如 (u, t, t) 的概率都是 1/11²
                                                                  →  和 s 无关
-```                                                                
+```
 {A, D, E} 那行的意思：D 和 E 拿的是同一个值，所以三个数里后两个一定相等。这不算漏信息，因为不管秘密是几，后两个都相等，这个规律和 s 无关。每种可能的 (x, t, t) 出现的概率都是 1/121，算式里没有 s。
 
 It suffices to check the four maximal unauthorized sets from part (a): every unauthorized set is a subset of one of them, and its view is a marginal of that set's joint view.
@@ -798,4 +798,236 @@ OTP 完美保密的定理有一个前提：每条消息都用一把新的、独�
 
 ## Q7 随机周期 Vigenère
 
-（待复习）
+### Reading
+
+> **Reading:** Katz–Lindell Sections 1.3 and 2.1, especially Example 2.7 (page 32).
+
+Identify the alphabet with $\mathbb{Z}_{26}$ using $a = 0, b = 1, \ldots, z = 25$, and perform all letter arithmetic modulo 26. The message and ciphertext spaces are the four-letter strings over this alphabet.
+
+The key-generation algorithm proceeds in the following order:
+
+1. Choose the period $T$ according to $\Pr[T = 1] = \tfrac13$, $\Pr[T = 2] = \tfrac23$.
+2. Conditional on $T = t$, sample $K_1, \ldots, K_t$ independently and uniformly from $\mathbb{Z}_{26}$. The key is $(T, K_1, \ldots, K_t)$.
+
+For $M = M_1 M_2 M_3 M_4$, encryption produces $C = C_1 C_2 C_3 C_4$, where
+
+$C_j = M_j + K_{1 + ((j-1) \bmod T)} \pmod{26}$ for $j \in \{1, 2, 3, 4\}$.
+
+Decryption subtracts the same repeated key character in each position, modulo 26. Thus a period-one key uses $K_1$ in all four positions, while a period-two key alternates $K_1, K_2, K_1, K_2$.
+
+In the perfect-indistinguishability experiment, an adversary outputs two messages $m_0, m_1$. The challenger independently generates a key as above and samples $b \xleftarrow{\$} \{0, 1\}$, then returns $C = \mathrm{Enc}_K(m_b)$. The adversary outputs $b' \in \{0, 1\}$ and succeeds when $b' = b$. A scheme is perfectly indistinguishable if every adversary, even a computationally unbounded one, succeeds with probability exactly $1/2$.
+
+Analyze the following deterministic adversary $A$:
+
+1. It chooses $m_0 = \texttt{math}$, $m_1 = \texttt{test}$.
+2. For any four-letter string $x = x_1 x_2 x_3 x_4$, define $\Delta(x) = x_1 - x_2 + x_3 - x_4 \pmod{26}$. After receiving $C$, the adversary outputs $b' = 0$ if $\Delta(C) = \Delta(m_0)$, and outputs $b' = 1$ otherwise.
+
+### 中文思路
+
+#### 第 1 块：这个加密方案是什么
+
+**字母换成数字**：a = 0，b = 1，……，z = 25，加法都 mod 26（超过 25 就绕回来）。
+
+```
+math  →  12  0  19  7
+```
+
+**钥匙怎么生成，分两步**：
+
+```
+① 先随机选周期 T：     T = 1 的概率 1/3，T = 2 的概率 2/3
+② 再随机选钥匙字母：    T = 1 选一个 K₁；T = 2 选两个 K₁、K₂（每个都在 0~25 里均匀随机）
+```
+
+**加密**：明文每个字母加上对应的钥匙字母。
+
+```
+T = 1：四个位置都加 K₁              （就是凯撒密码，整体平移）
+T = 2：四个位置依次加 K₁ K₂ K₁ K₂     （两把钥匙轮流用）
+```
+
+**例子**：加密 math（12 0 19 7）
+
+```
+T = 1，K₁ = 3：              12+3   0+3   19+3   7+3   =  15  3  22  10
+T = 2，K₁ = 3，K₂ = 5：       12+3   0+5   19+3   7+5   =  15  5  22  12
+```
+
+#### 第 2 块：这道题的"猜谜游戏"
+
+**游戏怎么玩**（就是 Lec 7 的不可区分实验）：
+
+```
+① 攻击者先挑两条消息：     m₀ = math，m₁ = test
+② 裁判偷偷抛一枚硬币 b：   0 或 1，各一半概率
+③ 裁判随机生成钥匙：       先选 T，再选 K（第 1 块那样）
+④ 裁判加密 m_b，把密文 C 交给攻击者
+⑤ 攻击者看着 C，猜 b′：     b′ = b 就算赢
+```
+
+**完美不可区分**（perfect indistinguishability）：**任何**攻击者（哪怕算力无限）赢的概率都**正好是 1/2**。看了密文和没看一样，只能瞎猜。
+
+**这道题要证"不是"完美不可区分**：只要找到**一个**攻击者，赢的概率 ≠ 1/2 就够了。题目已经给好了攻击者 A，我们只需要**算出 A 赢的概率**（最后是 2/3）。
+
+**攻击者 A 的招数**：给每个四字母串算一个"指纹"
+
+```
+Δ(x) = x₁ − x₂ + x₃ − x₄     （mod 26）
+```
+
+拿到密文 C 后：**Δ(C) 等于 Δ(math) 就猜 0，否则猜 1。**
+
+**为什么挑这个指纹**：T = 1 时四个位置加的是同一个 K₁，在 Δ 里一加一减正好全部抵消，所以 Δ(C) = Δ(明文)，**指纹直接把明文暴露了**。
+
+#### 第 3 块：(a) 算指纹 $\Delta$
+
+**① 两条消息的指纹**（字母换成数字，按 + − + − 算）：
+
+```
+math = 12  0  19  7     Δ = 12 − 0 + 19 − 7   = 24
+test = 19  4  18  19    Δ = 19 − 4 + 18 − 19  = 14
+```
+
+24 ≠ 14，两条消息的指纹不一样，这是 A 能分辨它们的基础。
+
+**② T = 1**：四个位置都加 $K_1$
+
+```
+Δ(C) = (M₁ + K₁) − (M₂ + K₁) + (M₃ + K₁) − (M₄ + K₁)
+     = (M₁ − M₂ + M₃ − M₄) + (K₁ − K₁ + K₁ − K₁)
+     = Δ(M)                                          钥匙两加两减，全部抵消
+```
+
+**③ T = 2**：依次加 $K_1, K_2, K_1, K_2$
+
+```
+Δ(C) = (M₁ + K₁) − (M₂ + K₂) + (M₃ + K₁) − (M₄ + K₂)
+     = Δ(M) + (K₁ − K₂ + K₁ − K₂)
+     = Δ(M) + 2(K₁ − K₂)                             没抵消干净，多出一个随机量
+```
+
+**用第 1 块的例子验证**（math，$\Delta = 24$）：
+
+```
+T = 1，K₁ = 3：         密文 15 3 22 10，Δ = 15 − 3 + 22 − 10 = 24        ✓ 等于 Δ(M)
+T = 2，K₁ = 3，K₂ = 5：  密文 15 5 22 12，Δ = 15 − 5 + 22 − 12 = 20
+                        公式：24 + 2(3 − 5) = 20                           ✓
+```
+
+**小结**：
+
+```
+T = 1：  Δ(C) = Δ(M)                  指纹原样暴露
+T = 2：  Δ(C) = Δ(M) + 2(K₁ − K₂)     指纹被一个随机量打乱
+```
+
+#### 第 4 块：(b) $b = 0$ 时，A 猜对的概率
+
+$b = 0$：加密的是 math，$\Delta(M) = 24$。A 的规则是"$\Delta(C) = 24$ 就猜 0"，所以 **A 猜对 ⟺ $\Delta(C) = 24$**。
+
+**情况 1：$T = 1$**。$\Delta(C) = \Delta(M) = 24$，永远等于 24，A 一定猜对：
+
+```
+Pr[猜对 | b = 0, T = 1] = 1
+```
+
+**情况 2：$T = 2$**。$\Delta(C) = 24 + 2(K_1 - K_2)$，猜对要求 $2(K_1 - K_2) \equiv 0 \pmod{26}$。
+
+记 $d = K_1 - K_2$（mod 26）：
+
+```
+26 | 2d   ⟺   13 | d   ⟺   d = 0 或 d = 13
+```
+
+> [!caution] 最容易漏
+> **$d = 13$ 也满足**：$2 \times 13 = 26 \equiv 0$。只写 $d = 0$ 会把概率算成 $1/26$。
+
+数满足的对数：$K_2$ 有 26 种；$K_2$ 定了以后，$K_1 = K_2$ 或 $K_2 + 13$，有 2 种。
+
+```
+满足的对数 = 26 × 2 = 52，总对数 = 26 × 26 = 676，概率 = 52/676 = 1/13
+```
+
+这就是 counting note 在提醒的：每一对的概率是 $1/26^2$，但满足方程的有 52 对，要全部数上。
+
+```
+Pr[猜对 | b = 0, T = 2] = 1/13
+```
+
+**合起来**（按 $T$ 的概率加权）：
+
+```
+Pr[猜对 | b = 0] = 1/3 × 1 + 2/3 × 1/13 = 13/39 + 2/39 = 15/39 = 5/13
+```
+
+**直觉**：$T = 1$ 时指纹原样暴露，A 稳赢；$T = 2$ 时指纹被打乱，A 只有 1/13 的运气猜对。
+
+### (a)
+
+Compute $\Delta(m_0)$ and $\Delta(m_1)$. Derive $\Delta(C)$ in terms of $\Delta(M)$ and the key characters separately for $T = 1$ and $T = 2$.
+
+#### Review
+
+$\Delta(\texttt{math}) = 12 - 0 + 19 - 7 = 24$, $\Delta(\texttt{test}) = 19 - 4 + 18 - 19 = 14 \pmod{26}$.
+
+- $T = 1$: $\Delta(C) = (M_1 + K_1) - (M_2 + K_1) + (M_3 + K_1) - (M_4 + K_1) = \Delta(M)$.
+- $T = 2$: $\Delta(C) = (M_1 + K_1) - (M_2 + K_2) + (M_3 + K_1) - (M_4 + K_2) = \Delta(M) + 2(K_1 - K_2)$.
+
+A outputs $0$ iff $\Delta(C) \equiv 24$.
+
+
+### (b)
+
+Conditioned on $b = 0$, calculate the exact probability that $A$ succeeds. Analyze the cases $T = 1$ and $T = 2$ separately.
+
+#### Review
+
+$b = 0$: $M = \texttt{math}$, $\Delta(M) = 24$; A succeeds iff $\Delta(C) \equiv 24$.
+
+- $T = 1$: $\Delta(C) = 24$ always, success probability $1$.
+- $T = 2$: success iff $2(K_1 - K_2) \equiv 0 \pmod{26}$, i.e. $K_1 - K_2 \equiv 0$ or $13$. Each $K_2$ gives 2 values of $K_1$, so $52$ of $26^2$ pairs: probability $\tfrac{52}{26^2} = \tfrac1{13}$.
+
+$\Pr[b' = 0 \mid b = 0] = \tfrac13 \cdot 1 + \tfrac23 \cdot \tfrac1{13} = \tfrac{5}{13}.$
+
+
+### (c)
+
+Conditioned on $b = 1$, calculate the exact probability that $A$ succeeds. Again analyze both possible periods separately.
+
+#### Review
+
+![alt text](<assets/笔记 2028 copy.png>)
+
+$b = 1$: $M = \texttt{test}$, $\Delta(M) = 14$; A succeeds iff $\Delta(C) \not\equiv 24$.
+
+- $T = 1$: $\Delta(C) = 14 \ne 24$ always, success probability $1$.
+- $T = 2$: A fails iff $14 + 2(K_1 - K_2) \equiv 24$, i.e. $2(K_1 - K_2) \equiv 10 \pmod{26}$, i.e. $K_1 - K_2 \equiv 5$ or $18$. Again $52$ pairs: failure $\tfrac1{13}$, success $\tfrac{12}{13}$.
+
+$\Pr[b' = 1 \mid b = 1] = \tfrac13 \cdot 1 + \tfrac23 \cdot \tfrac{12}{13} = \tfrac{37}{39}.$
+
+### (d)
+
+Consider the four cases $(b, T) \in \{(0, 1), (0, 2), (1, 1), (1, 2)\}$. For a case $(b, T) = (\beta, t)$, state the condition under which $A$ is correct and compute $\Pr[b' = b \mid b = \beta, T = t]$. Multiply by $\Pr[b = \beta, T = t]$ to obtain the branch contribution $\Pr[b = \beta, T = t, b' = b]$. Present all four cases in a probability tree or table, sum their contributions to calculate $\Pr[b' = b]$ exactly as a fraction, compare the result with $1/2$, and conclude whether the scheme is perfectly indistinguishable.
+
+> **Important counting note:** Conditioned on $T = 2$, any one specified ordered pair $(K_1, K_2) = (u, v)$ has probability $1/26^2$. An equation relating $K_1$ and $K_2$ may be satisfied by many ordered pairs, so its probability must account for all satisfying pairs.
+
+#### Review
+
+Since $b$ and $T$ are independent, $\Pr[b = \beta, T = t] = \tfrac12 \Pr[T = t]$.
+
+| $b$ | $T$ | A correct iff | $\Pr[b' = b \mid b, T]$ | Contribution |
+| :-: | :-: | :-- | :-: | :-: |
+| 0 | 1 | always ($\Delta(C) = 24$) | $1$ | $\tfrac12 \cdot \tfrac13 \cdot 1 = \tfrac16$ |
+| 0 | 2 | $2(K_1 - K_2) \equiv 0$ | $\tfrac1{13}$ | $\tfrac12 \cdot \tfrac23 \cdot \tfrac1{13} = \tfrac1{39}$ |
+| 1 | 1 | always ($\Delta(C) = 14 \ne 24$) | $1$ | $\tfrac12 \cdot \tfrac13 \cdot 1 = \tfrac16$ |
+| 1 | 2 | $2(K_1 - K_2) \not\equiv 10$ | $\tfrac{12}{13}$ | $\tfrac12 \cdot \tfrac23 \cdot \tfrac{12}{13} = \tfrac4{13}$ |
+
+$\Pr[b' = b] = \tfrac16 + \tfrac1{39} + \tfrac16 + \tfrac4{13} = \tfrac{52}{78} = \tfrac23 > \tfrac12.$
+
+So the scheme is **not perfectly indistinguishable** (and hence, by equivalence, not perfectly secret).
+
+> [!caution] 丢分点
+> 1. $1/26^2$ 只是**某一对**钥匙的概率，不能当成整个方程的概率；方程 $2d \equiv 0$ 或 $2d \equiv 10$ 都有**两个解**，各 52 对。
+> 2. 别忘了加权：$T$ 分别乘 $\tfrac13$、$\tfrac23$，$b$ 还要乘 $\tfrac12$。
+> 3. $b = 1$ 时逻辑反过来：A 要 $\Delta(C) \ne 24$ 才猜对。
+> 4. $\Delta(C)$ 里是 $2(K_1 - K_2)$，不是 $2(K_2 - K_1)$。
